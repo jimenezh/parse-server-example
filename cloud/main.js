@@ -5,29 +5,30 @@
 
 
  Parse.Cloud.define('schedule', function(request, response){
-   schedule = require(‘node-schedule’);
+   schedule = require('node-schedule');
+
    var newUTDate = new Date(req.body.alertDate);
     //This is required because if a date in the past then it should send the reminder notifications out in the next minute;
     var currentDate = new Date(Date.now() + (1 * 60000));
 
-    if(newUTDate <= currentDate )
+    if(newUTDate <= currentDate)
        newUTDate = currentDate;
     //not sure why this is required but this is the only way I could get te scheduler to work
-    var schRetVal= schedule.scheduleJob(new Date(
-                newUTDate.getFullYear(),
-                newUTDate.getMonth(),
-                newUTDate.getDate(),
-                newUTDate.getHours(),
-                newUTDate.getMinutes()),
-                function(){
-         //add scheduled push notification
-         var query = new Parse.Query(Parse.Installation)
-          , data = {
-              "alert"         :"Reminder, Michael is going to help you with basketball today",
-          };
+    var schRetVal= schedule.scheduleJob(
+      new Date(
+        newUTDate.getFullYear(),
+        newUTDate.getMonth(),
+        newUTDate.getDate(),
+        newUTDate.getHours(),
+        newUTDate.getMinutes()),
+        function(){
+          //add scheduled push notification
+          var query = new Parse.Query(Parse.Installation)
+            , data = {
+                "alert"         :"Reminder, Michael is going to help you with basketball today",
+            };
 
-          query.equalTo("userid", 23); // send push to user
-          query.equalTo("deviceType", "ios");
+          query.equalTo("deviceType", "android");
 
           //push_time is not supported in the parse-server.
           Parse.Push.send({
