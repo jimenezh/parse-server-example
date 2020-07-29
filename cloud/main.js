@@ -41,7 +41,7 @@ Parse.Cloud.define('pushChannelTest', function(request, response) {
   }, useMasterKey: true});
 
 
-  // response.success('success');
+  response.send("Push notification has reached the server");
 });
 
 // iOS push testing
