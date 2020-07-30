@@ -6,15 +6,20 @@
 
  Parse.Cloud.define('schedule', function(req, res){
    schedule = require('node-schedule');
+   const express = require('express');
+   const
 
+   express.use()
 
    var params = req.params;
-   console.log("Params are ", params, " with type ", typeof params.year);
-   var year = params.year;
+   var year = req.year;
    var month = params.month;
    var day = params.day;
    var hour = params.hour;
    var min = params.minute;
+
+   console.log("Params are ", params, " with ", year, " of type ", typeof year);
+
    var newUTDate = new Date(year, month, day, hour,min);
    console.log("New date is "+newUTDate);
     //This is required because if a date in the past then it should send the reminder notifications out in the next minute;
