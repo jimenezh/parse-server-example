@@ -22,8 +22,10 @@
     if(newUTDate <= currentDate)
        newUTDate = currentDate;
     //not sure why this is required but this is the only way I could get te scheduler to work
-    console.log("scheduling job for ");
-    var schRetVal= schedule.scheduleJob(newUTDate),
+    console.log("scheduling job for ", newUTDate);
+
+    var schRetVal= schedule.scheduleJob(
+         newUTDate,
         function(){
           //add scheduled push notification
           var query = new Parse.Query(Parse.Installation)
