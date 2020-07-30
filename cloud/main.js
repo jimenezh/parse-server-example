@@ -22,22 +22,16 @@
     if(newUTDate <= currentDate)
        newUTDate = currentDate;
     //not sure why this is required but this is the only way I could get te scheduler to work
-    console.log("scheduling job");
-    var schRetVal= schedule.scheduleJob(
-      new Date(
-        newUTDate.getFullYear(),
-        newUTDate.getMonth(),
-        newUTDate.getDate(),
-        newUTDate.getHours(),
-        newUTDate.getMinutes()),
+    console.log("scheduling job for ");
+    var schRetVal= schedule.scheduleJob(newUTDate),
         function(){
           //add scheduled push notification
           var query = new Parse.Query(Parse.Installation)
             , data = {
-                "alert"         :"Reminder, Michael is going to help you with basketball today",
+                "alert" :"You have an election coming up!",
             };
 
-          query.equalTo("deviceType", "android");
+            pushQuery.equalTo("deviceType", "android");
 
           //push_time is not supported in the parse-server.
           Parse.Push.send({
