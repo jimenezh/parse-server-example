@@ -6,10 +6,6 @@
 
  Parse.Cloud.define('schedule', function(req, res){
    schedule = require('node-schedule');
-   const express = require('express');
-   const
-
-   express.use()
 
    var params = req.params;
    var year = req.year;
