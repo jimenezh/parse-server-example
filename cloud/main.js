@@ -4,7 +4,7 @@
 // See https://github.com/codepath/ParsePushNotificationExample/blob/master/app/src/main/java/com/test/MyCustomReceiver.java
 
 
- Parse.Cloud.define('schedule', function(req, res){
+ Parse.Cloud.define('schedule', async (request) =>{
    schedule = require('node-schedule');
 
    var params = req.params.params;
@@ -54,9 +54,16 @@
 
       });
       console.log('test val go ', schRetVal);
-      //If the schedule return value is empty (null) then send a failure reponse to the client app.
-      //If the return value is not null then send a success response to the client app.
-      if(schRetVal)
+
+      var is_date = function(input) {
+         if ( Object.prototype.toString.call(input) === "[object Date]" )
+            return true;
+         return false;
+            };
+      console.log("Validity of date: ", is_date(newUTDate))
+
+
+      if(schRetVal && is_date(newUTDate))
          return "Success"
       else
          return "Failed to Schedule Work Reminders. To start work, go to the Orders Screen"
