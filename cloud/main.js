@@ -27,13 +27,10 @@
     var schRetVal= schedule.scheduleJob(
          newUTDate,
         function(){
-          //add scheduled push notification
-          var pushQuery = new Parse.Query(Parse.Installation)
-            , data = {
-                "alert" :"You have an election coming up!",
-            };
 
-          pushQuery.equalTo("deviceType", "android");
+         // use to custom tweak whatever payload you wish to send
+         var pushQuery = new Parse.Query(Parse.Installation);
+         pushQuery.equalTo("deviceType", "android");
 
           //push_time is not supported in the parse-server.
           return Parse.Push.send(
