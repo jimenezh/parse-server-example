@@ -28,12 +28,12 @@
          newUTDate,
         function(){
           //add scheduled push notification
-          var query = new Parse.Query(Parse.Installation)
+          var pushQuery = new Parse.Query(Parse.Installation)
             , data = {
                 "alert" :"You have an election coming up!",
             };
 
-            pushQuery.equalTo("deviceType", "android");
+          pushQuery.equalTo("deviceType", "android");
 
           //push_time is not supported in the parse-server.
           Parse.Push.send({
