@@ -8,9 +8,9 @@
    schedule = require('node-schedule');
 
    var params = req.params.params;
-   var str = params.s
+   var dateString = params.date
 
-   console.log("Params are ", params, " with ", str, " of type ", typeof str);
+   console.log("Params are ", params, " with ", dateString, " of type ", typeof dateString);
 
    var newUTDate = new Date(dateString);
 
