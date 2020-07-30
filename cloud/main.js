@@ -14,7 +14,7 @@
    var hour = params.hour;
    var min = params.minute;
 
-   console.log("Params are ", params, " with ", year, " of type ", typeof year);
+   console.log("Params are ", params.params, " with ", paramd.params.year, " of type ", typeof year);
 
    var newUTDate = new Date(year, month, day, hour,min);
    console.log("New date is "+newUTDate);
