@@ -7,14 +7,14 @@
  Parse.Cloud.define('schedule', function(req, res){
    schedule = require('node-schedule');
 
-   var params = req.params;
+   var params = req.params.params;
    var year = req.year;
    var month = params.month;
    var day = params.day;
    var hour = params.hour;
-   var min = params.minute;
+   var min = Number(params.minute);
 
-   console.log("Params are ", params.params, " with ", params.params.year, " of type ", typeof year);
+   console.log("Params are ", params, " with ", params.year, " of type ", typeof year, typeof min);
 
    var newUTDate = new Date(year, month, day, hour,min);
    console.log("New date is "+newUTDate);
