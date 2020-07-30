@@ -9,7 +9,7 @@
 
 
    var params = req.params;
-   console.log("Params are ", params, " with type ", params.year.type);
+   console.log("Params are ", params, " with type ", typeof params.year);
    var year = params.year;
    var month = params.month;
    var day = params.day;
