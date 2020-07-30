@@ -64,7 +64,7 @@
 
 });
 
-Parse.Cloud.define('pushChannelTest', function(request, response) {
+Parse.Cloud.define('pushChannelTest', async (request) =>{
 
   // request has 2 parameters: params passed by the client and the authorized user
   var params = request.params;
@@ -78,28 +78,26 @@ Parse.Cloud.define('pushChannelTest', function(request, response) {
   var pushQuery = new Parse.Query(Parse.Installation);
   pushQuery.equalTo("deviceType", "android");
 
-  var payload = {};
-
-  if (customData) {
-      payload.customdata = customData;
-  }
-  else if (launch) {
-      payload.launch = launch;
-  }
-  else if (broadcast) {
-      payload.broadcast = broadcast;
-  }
 
   // Note that useMasterKey is necessary for Push notifications to succeed.
 
-  Parse.Push.send({
-  where: pushQuery,      // for sending to a specific channel
-  data: payload,
-  }, { success: function() {
-     console.log("#### PUSH OK");
-  }, error: function(error) {
-     console.log("#### PUSH ERROR" + error.message);
-  }, useMasterKey: true});
+  return Parse.Push.send(
+            {
+               where: pushQuery,      // for sending to a specific channel
+               data: {
+                        title: "Hello from the Cloud Code",
+                        alert: "This is the alert",
+                     },
+            },
+            {
+               success: function() {
+                     console.log("#### PUSH OK");
+                  },
+               error: function(error) {
+                     console.log("#### PUSH ERROR" + error.message);
+                  },
+               useMasterKey: true
+            });
 
 
 });
