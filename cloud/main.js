@@ -26,13 +26,13 @@
     console.log("scheduling job for ", newUTDate);
 
     // Getting channel
-    var channel = params.channel;
+    var pushChannel = params.channel;
 
     console.log("Scheduling job for ", channel, "chanel");
 
 
     // defining callback for push notification
-    function sendPush(var channel){
+    function sendPush(channel){
 
          // use to custom tweak whatever payload you wish to send
          var pushQuery = new Parse.Query(Parse.Installation);
@@ -64,7 +64,7 @@
 
     var schRetVal= schedule.scheduleJob(
          newUTDate,
-         sendPush(channel)
+         sendPush(pushChannel)
         );
       console.log('test val go ', schRetVal);
 
