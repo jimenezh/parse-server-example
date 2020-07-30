@@ -36,19 +36,23 @@
           pushQuery.equalTo("deviceType", "android");
 
           //push_time is not supported in the parse-server.
-          Parse.Push.send({
-               where: pushQuery,
+          return Parse.Push.send(
+            {
+               where: pushQuery,      // for sending to a specific channel
+               data: {
+                        title: "Hello from the Cloud Code Scheduler",
+                        alert: "This is the alert",
+                     },
             },
             {
-               success: function () {
-                   console.log("arguments", arguments);
-                   console.log("User reminded of help today");
-               },
-               error: function (error) {
-                 console.log("Error: " + error.code + " " + error.message);
-              },
+               success: function() {
+                     console.log("#### PUSH OK");
+                  },
+               error: function(error) {
+                     console.log("#### PUSH ERROR" + error.message);
+                  },
                useMasterKey: true
-           });
+            });
 
 
 
