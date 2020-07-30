@@ -7,6 +7,7 @@
  Parse.Cloud.define('schedule', async (request) =>{
    schedule = require('node-schedule');
 
+   // getting date information
    var params = request.params.params;
    var dateString = params.date
 
@@ -24,13 +25,19 @@
     //not sure why this is required but this is the only way I could get te scheduler to work
     console.log("scheduling job for ", newUTDate);
 
-    var schRetVal= schedule.scheduleJob(
-         newUTDate,
-        function(){
+    // Getting channel
+    var channel = params.channel;
+
+    console.log("Scheduling job for ", channel, "chanel");
+
+
+    // defining callback for push notification
+    function sendPush(var channel){
 
          // use to custom tweak whatever payload you wish to send
          var pushQuery = new Parse.Query(Parse.Installation);
          pushQuery.equalTo("deviceType", "android");
+         pushQuery.equalTo('channels', channel);
 
           //push_time is not supported in the parse-server.
           return Parse.Push.send(
@@ -53,7 +60,12 @@
 
 
 
-      });
+      }
+
+    var schRetVal= schedule.scheduleJob(
+         newUTDate,
+         sendPush(channel)
+        );
       console.log('test val go ', schRetVal);
 
       var is_date = function(input) {
