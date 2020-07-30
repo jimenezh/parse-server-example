@@ -37,8 +37,7 @@
 
           //push_time is not supported in the parse-server.
           Parse.Push.send({
-               where: query,
-               data: data
+               where: pushQuery,
             },
             {
                success: function () {
