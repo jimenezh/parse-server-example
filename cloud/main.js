@@ -8,20 +8,13 @@
    schedule = require('node-schedule');
 
    var params = req.params.params;
-   var year = req.year;
-   var month = params.month;
-   var day = params.day;
-   var hour = params.hour;
-   var min = Number(params.minute);
-
    var str = params.s
 
-   console.log("Params are ", params, " with ", params.year, " of type ", typeof year, typeof min);
+   console.log("Params are ", params, " with ", str, " of type ", typeof str);
 
-   var newUTDate = new Date(year, month, day, hour,min);
-   var sDate = new Date(str);
-   var s2Date = new Date(String(str));
-   console.log("New date is "+newUTDate, sDate, s2Date);
+   var newUTDate = new Date(dateString);
+
+   console.log("New date is "+newUTDate);
     //This is required because if a date in the past then it should send the reminder notifications out in the next minute;
     var currentDate = new Date(Date.now() + (1 * 60000));
     console.log("Current date is "+ currentDate);
