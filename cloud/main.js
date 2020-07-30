@@ -7,13 +7,16 @@
  Parse.Cloud.define('schedule', function(req, res){
    schedule = require('node-schedule');
 
+   console.log("In the function with "+req);
    var newUTDate = new Date(req.body.alertDate);
+   console.log("New date is "+newUTDate);
     //This is required because if a date in the past then it should send the reminder notifications out in the next minute;
     var currentDate = new Date(Date.now() + (1 * 60000));
 
     if(newUTDate <= currentDate)
        newUTDate = currentDate;
     //not sure why this is required but this is the only way I could get te scheduler to work
+    console.log("scheduling job");
     var schRetVal= schedule.scheduleJob(
       new Date(
         newUTDate.getFullYear(),
