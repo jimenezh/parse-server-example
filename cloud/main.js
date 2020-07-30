@@ -14,10 +14,14 @@
    var hour = params.hour;
    var min = Number(params.minute);
 
+   var str = params.s
+
    console.log("Params are ", params, " with ", params.year, " of type ", typeof year, typeof min);
 
    var newUTDate = new Date(year, month, day, hour,min);
-   console.log("New date is "+newUTDate);
+   var sDate = new Date(str);
+   var s2Date = new Date(String(str));
+   console.log("New date is "+newUTDate, sDate, s2Date);
     //This is required because if a date in the past then it should send the reminder notifications out in the next minute;
     var currentDate = new Date(Date.now() + (1 * 60000));
     console.log("Current date is "+ currentDate);
