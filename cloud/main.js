@@ -10,9 +10,11 @@
 
    var params = req.params;
    console.log("Params are ", params);
-   var date = params.alertDate;
-   console.log("Date string is ", date);
-   var newUTDate = new Date(date);
+   var year = params.year;
+   var month = params.month;
+   var day = params.day;
+   var hour = params.hour;
+   var newUTDate = new Date(year, month, day, hour);
    console.log("New date is "+newUTDate);
     //This is required because if a date in the past then it should send the reminder notifications out in the next minute;
     var currentDate = new Date(Date.now() + (1 * 60000));
@@ -60,9 +62,9 @@
       //If the schedule return value is empty (null) then send a failure reponse to the client app.
       //If the return value is not null then send a success response to the client app.
       if(schRetVal)
-         res.json({code:100, message: 'Success'});
+         return "Success"
       else
-         res.json({code: -100, message: 'Failed to Schedule Work Reminders. To start work, go to the Orders Screen'});
+         return "Failed to Schedule Work Reminders. To start work, go to the Orders Screen"
 
 
 });
