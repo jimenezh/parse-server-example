@@ -98,5 +98,4 @@ Parse.Cloud.define('pushChannelTest', function(request, response) {
   }, useMasterKey: true});
 
 
-  response.json({"Push has been sent"});
 });
