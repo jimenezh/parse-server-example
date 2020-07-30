@@ -7,7 +7,7 @@
  Parse.Cloud.define('schedule', async (request) =>{
    schedule = require('node-schedule');
 
-   var params = req.params.params;
+   var params = request.params.params;
    var dateString = params.date
 
    console.log("Params are ", params, " with ", dateString, " of type ", typeof dateString);
