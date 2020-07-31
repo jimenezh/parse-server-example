@@ -8,10 +8,12 @@
    schedule = require('node-schedule');
 
    // getting date information
-   var params = request.params.params;
-   var dateString = params.date
-
-   console.log("Params are ", params, " with ", dateString, " of type ", typeof dateString);
+   var params = request.params;
+   var dateString = params.date;
+   var channel = params.channel;
+   console.log("Params: ", params);
+   console.log("Date: ", dateString);
+   console.log("Channel: ", channel);
 
    var newUTDate = new Date(dateString);
 
@@ -23,13 +25,7 @@
     if(newUTDate <= currentDate)
        newUTDate = currentDate;
     //not sure why this is required but this is the only way I could get te scheduler to work
-    console.log("scheduling job for ", newUTDate);
-
-    // Getting channel
-    var pushChannel = params.channel;
-
-    console.log("Scheduling job for ", channel, "chanel");
-
+    console.log("scheduling job for ", newUTDate, " in channel ", channel);
 
     // defining callback for push notification
     function sendPush(channel){
@@ -62,9 +58,11 @@
 
       }
 
+      console.log("Using function ", sendPush);
+
     var schRetVal= schedule.scheduleJob(
          newUTDate,
-         sendPush(pushChannel)
+         sendPush
         );
       console.log('test val go ', schRetVal);
 
