@@ -63,7 +63,7 @@
 
    }
 
-   console.log("Using function ", sendPush);
+   console.log("Using function ", sendPush(channel));
 
     var schRetVal= schedule.scheduleJob(
          newUTDate,
