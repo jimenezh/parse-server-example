@@ -41,7 +41,7 @@
 
        // what message to send
        var message;
-       if(before == "week"){
+       if(String(before) == "week"){
           message = "Make sure to register. Election day is coming up!"
        } else{
           message = "Election day! Head to the polls!"
