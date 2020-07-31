@@ -30,35 +30,40 @@
     // defining callback for push notification
     function sendPush(channel){
 
-         // use to custom tweak whatever payload you wish to send
-         var pushQuery = new Parse.Query(Parse.Installation);
-         pushQuery.equalTo("deviceType", "android");
-         pushQuery.equalTo('channels', channel);
+       console.log("Inside sendPush Callback");
+       console.log("Targeted channel is ", channel);
 
-          //push_time is not supported in the parse-server.
-          return Parse.Push.send(
-            {
-               where: pushQuery,      // for sending to a specific channel
-               data: {
-                        title: "Hello from the Cloud Code Scheduler",
-                        alert: "This is the alert",
-                     },
+      // use to custom tweak whatever payload you wish to send
+      var pushQuery = new Parse.Query(Parse.Installation);
+      pushQuery.equalTo("deviceType", "android");
+      pushQuery.equalTo('channels', channel);
+
+      console.log("Sending push query");
+
+         //push_time is not supported in the parse-server.
+      return Parse.Push.send(
+      {
+         where: pushQuery,      // for sending to a specific channel
+         data: {
+                  title: "Hello from the Cloud Code Scheduler",
+                  alert: "This is the alert",
+               },
+      },
+      {
+         success: function() {
+               console.log("#### PUSH OK");
             },
-            {
-               success: function() {
-                     console.log("#### PUSH OK");
-                  },
-               error: function(error) {
-                     console.log("#### PUSH ERROR" + error.message);
-                  },
-               useMasterKey: true
-            });
+         error: function(error) {
+               console.log("#### PUSH ERROR" + error.message);
+            },
+         useMasterKey: true
+      });
 
 
 
-      }
+   }
 
-      console.log("Using function ", sendPush);
+   console.log("Using function ", sendPush);
 
     var schRetVal= schedule.scheduleJob(
          newUTDate,
@@ -66,18 +71,18 @@
         );
       console.log('test val go ', schRetVal);
 
-      var is_date = function(input) {
-         if ( Object.prototype.toString.call(input) === "[object Date]" )
-            return true;
-         return false;
-            };
-      console.log("Validity of date: ", is_date(newUTDate))
+   var is_date = function(input) {
+      if ( Object.prototype.toString.call(input) === "[object Date]" )
+         return true;
+      return false;
+         };
+   console.log("Validity of date: ", is_date(newUTDate))
 
 
-      if(schRetVal && is_date(newUTDate))
-         return "Success"
-      else
-         return "Failed to Schedule Work Reminders. To start work, go to the Orders Screen"
+   if(schRetVal && is_date(newUTDate))
+      return "Success"
+   else
+      return "Failed to Schedule Work Reminders. To start work, go to the Orders Screen"
 
 
 });
