@@ -12,10 +12,12 @@
    var dateString = params.date;
    var channel = params.channel;
    var election = params.election;
+   var before = params.before;
    console.log("Params: ", params);
    console.log("Date: ", dateString);
    console.log("Channel: ", channel);
    console.log("Election: ", election);
+   console.log("before: ", before);
 
    var newUTDate = new Date(dateString);
 
@@ -30,17 +32,26 @@
     console.log("scheduling job for ", newUTDate, " in channel ", channel);
 
     // defining callback for push notification
-    function sendPush(channel, election){
+    function sendPush(channel, election, before){
 
        console.log("Inside sendPush Callback");
        console.log("Targeted channel is ", channel, " for election ", election);
 
        // Configuring data
 
+       // what message to send
+       var message;
+       if(before == "week"){
+          message = "Make sure to register. Election day is coming up!"
+       } else{
+          message = "Election day! Head to the polls!"
+       }
        var data = {
           "title": election,
-          "alert": "Go vote!"
+          "alert": message
        }
+      console.log("Using data ", data);
+
 
       // use to custom tweak whatever payload you wish to send
       var pushQuery = new Parse.Query(Parse.Installation);
