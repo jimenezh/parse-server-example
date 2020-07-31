@@ -11,9 +11,11 @@
    var params = request.params;
    var dateString = params.date;
    var channel = params.channel;
+   var election = params.election;
    console.log("Params: ", params);
    console.log("Date: ", dateString);
    console.log("Channel: ", channel);
+   console.log("Election: ", election);
 
    var newUTDate = new Date(dateString);
 
@@ -28,10 +30,17 @@
     console.log("scheduling job for ", newUTDate, " in channel ", channel);
 
     // defining callback for push notification
-    function sendPush(channel){
+    function sendPush(channel, election){
 
        console.log("Inside sendPush Callback");
-       console.log("Targeted channel is ", channel);
+       console.log("Targeted channel is ", channel, " for election ", election);
+
+       // Configuring data
+
+       var data = {
+          "title": election,
+          "alert": "Go vote!"
+       }
 
       // use to custom tweak whatever payload you wish to send
       var pushQuery = new Parse.Query(Parse.Installation);
@@ -44,10 +53,7 @@
       return Parse.Push.send(
       {
          where: pushQuery,      // for sending to a specific channel
-         data: {
-                  title: "Hello from the Cloud Code Scheduler",
-                  alert: "This is the alert",
-               },
+         data: data
       },
       {
          success: function() {
@@ -63,7 +69,7 @@
 
    }
 
-   console.log("Using function ", sendPush(channel));
+   console.log("Using function ", sendPush(channel, election));
 
     var schRetVal= schedule.scheduleJob(
          newUTDate,
